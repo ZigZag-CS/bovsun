@@ -9,11 +9,11 @@
 
 
 {% if username %}
-    <a href="{% url "logout" %}">
+    <a href="{% url 'account:logout' %}">
         Выйти {{ username }}
     </a>
 {% else %}
-    <a href="{% url "login" %}">
+    <a href="{% url 'account:login' %}">
         Войти
     </a>
 {% endif %}
