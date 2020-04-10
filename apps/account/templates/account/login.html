@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+
+
+<br>
+
+{% if form.errors %}
+    <h2>Неверное имя пользователя и пароль. Пожал. введите правильно.</h2>
+{% else %}
+    <h2>Пожалуйста ввидете логин и пароль ниже в форму:</h2>
+{% endif %}
+
+<form action="." method="post">
+   {{ form.as_p }}
+    {% csrf_token %}
+
+    <p>
+        <input type="submit" value="Войти">
+    </p>
+</form>
+
+
+{% endblock %}

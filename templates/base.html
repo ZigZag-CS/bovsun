@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+{% if username %}
+    <a href="{% url "logout" %}">
+        Выйти {{ username }}
+    </a>
+{% else %}
+    <a href="{% url "login" %}">
+        Войти
+    </a>
+{% endif %}
+{% block content %}{% endblock %}
+
+
+
+</body>
+</html>
