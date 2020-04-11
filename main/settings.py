@@ -124,8 +124,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-                os.path.join(BASE_DIR, 'static/account'),
-                os.path.join(BASE_DIR, 'static/index'),
+                os.path.join(BASE_DIR, 'apps/account/static'),
+                os.path.join(BASE_DIR, 'apps/index/static'),
+                os.path.join(BASE_DIR, 'static/utils/bootstrap44'),
 ]
 
 MEDIA_URL = '/media/'
