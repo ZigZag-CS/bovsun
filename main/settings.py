@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'apps.account',
+    'apps.index',
 ]
 
 SITE_ID = 1
@@ -59,6 +60,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, "templates"),
             os.path.join(BASE_DIR, 'apps/account/templates'),
+            os.path.join(BASE_DIR, 'apps/index/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,7 +123,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [
+                os.path.join(BASE_DIR, 'static/account'),
+                os.path.join(BASE_DIR, 'static/index'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
