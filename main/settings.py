@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'apps.account',
     'apps.index',
+    'apps.scontent',
 ]
 
 SITE_ID = 1
@@ -61,6 +62,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, "templates"),
             os.path.join(BASE_DIR, 'apps/account/templates'),
             os.path.join(BASE_DIR, 'apps/index/templates'),
+            os.path.join(BASE_DIR, 'apps/scontent/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -126,6 +128,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
                 os.path.join(BASE_DIR, 'apps/account/static'),
                 os.path.join(BASE_DIR, 'apps/index/static'),
+                os.path.join(BASE_DIR, 'apps/scontent/static'),
                 os.path.join(BASE_DIR, 'static/utils/bootstrap44'),
 ]
 
@@ -138,7 +141,7 @@ STATICFILES_FINDERS = (
 )
 
 from django.urls import reverse_lazy
-# старый путь -from django.core.urlresolvers import reverse_lazy
+
 LOGIN_REDIRECT_URL = reverse_lazy('account:dasboard')
 LOGIN_URL = reverse_lazy('account:login')
 LOGOUT_URL = reverse_lazy('account:logout')
