@@ -5,8 +5,6 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 
-# from pytils.translit import slugify
-
 def image_directory_path(instance, filename):
     time = str(datetime.date.today())
     return 'users/{0}/{1}/{2}'.format(instance.user.username, time, filename)
@@ -33,7 +31,7 @@ class Content(models.Model):
 
     def get_absolute_url(self):
         print("=================")
-        print(f'>>> {self.user_id} ======= {self.slug} >>>')
+        print(f'>>> {self.user.id} ======= {self.slug} >>>')
         print("=================")
         return reverse('scontent:detail', kwargs={'id': self.id, 'slug': self.slug})
 
