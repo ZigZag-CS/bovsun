@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from apps.scontent.models import Content
+from apps.scontent.models import *
 
 
 class ContentAdmin(admin.ModelAdmin):

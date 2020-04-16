@@ -1,6 +1,5 @@
 from django.urls import path
-
-from . import views
+from apps.scontent import views
 
 app_name = 'scontent'
 
