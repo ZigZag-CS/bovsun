@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from apps.scontent.forms import *
 
@@ -17,3 +17,11 @@ def content_create(request):
     else:
         form = ContentCreateForm()
     return render(request, 'scontent/create.html', {'form': form})
+
+
+def content_detail(request, id, slug):
+    content_detail = get_object_or_404(Content, id=id, slug=slug)
+    return render(request,
+                  "scontent/detail.html",
+                  {'content_detail': content_detail}
+                  )

@@ -1,6 +1,7 @@
 import datetime
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 
 
@@ -29,6 +30,12 @@ class Content(models.Model):
             self.slug = slugify(self.title)
             # super(Content, self).save(*args, **kwargs)
         super(Content, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        print("=================")
+        print(f'>>> {self.user_id} ======= {self.slug} >>>')
+        print("=================")
+        return reverse('scontent:detail', kwargs={'id': self.id, 'slug': self.slug})
 
     def __str__(self):
         return self.title

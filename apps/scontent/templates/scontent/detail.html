@@ -3,32 +3,27 @@
 
 
  <main role="main" class="container">
-<!--Контент -->
-<h1>{{ content_detail.title }}</h1>
-     
-<br> <br>
+     <!--Контент -->
+     <h1>{{ content_detail.title }}</h1>
+
+     <br> <br>
+
      {% load thumbnail %}
-     
-     {% thumbnail content_detail.image "300"  as im %}
-         
+
+     {% thumbnail content_detail.image "300" as im %}
+
          <a href="{{ content_detail.image.url }}">
-         
-         <img src="{{ im.url }}">
+             <img src="{{ im.url }}" alt="img">
          </a>
-     
+
      {% endthumbnail %}
- <br> <br>
 
+     <br><br>
 
+     {{ content_detail.entry|safe }}
 
- {{ content_detail.entry|safe }}
-
-
-
- <!-- End Контент -->
-
+     <!-- End Контент -->
  </main>
-
 
 
 {% endblock %}
