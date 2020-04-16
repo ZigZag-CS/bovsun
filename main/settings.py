@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'apps.account',
     'apps.index',
     'apps.scontent',
+    'crispy_forms',
+    'sorl.thumbnail',
 ]
 
 SITE_ID = 1
@@ -147,3 +149,6 @@ LOGIN_URL = reverse_lazy('account:login')
 LOGOUT_URL = reverse_lazy('account:logout')
 
 AUTH_USER_MODEL = 'auth.User'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# CRISPY_FAIL_SILENTLY = not DEBUG
