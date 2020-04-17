@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+ <main role="main" class="container">
+     <!--Контент -->
+     <h1>{{ content_detail.title }}</h1>
+
+     <br> <br>
+
+     {% load thumbnail %}
+
+     {% thumbnail content_detail.image "300" as im %}
+
+         <a href="{{ content_detail.image.url }}">
+             <img src="{{ im.url }}" alt="img">
+         </a>
+
+     {% endthumbnail %}
+
+     <br><br>
+
+     {{ content_detail.entry|safe }}
+
+     <!-- End Контент -->
+ </main>
+
+
+{% endblock %}

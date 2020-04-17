@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scontent', '0002_content_users_like'),
+        ('scontent2', '0002_content_users_like'),
     ]
 
     operations = [

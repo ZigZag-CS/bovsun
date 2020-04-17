@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'apps.account',
     'apps.index',
     'apps.scontent',
+    'apps.scontent2',
     'crispy_forms',
     'sorl.thumbnail',
 ]
@@ -65,6 +66,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'apps/account/templates'),
             os.path.join(BASE_DIR, 'apps/index/templates'),
             os.path.join(BASE_DIR, 'apps/scontent/templates'),
+            os.path.join(BASE_DIR, 'apps/scontent2/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,6 +133,7 @@ STATICFILES_DIRS = [
                 os.path.join(BASE_DIR, 'apps/account/static'),
                 os.path.join(BASE_DIR, 'apps/index/static'),
                 os.path.join(BASE_DIR, 'apps/scontent/static'),
+                os.path.join(BASE_DIR, 'apps/scontent2/static'),
                 os.path.join(BASE_DIR, 'static/utils/bootstrap44'),
                 os.path.join(BASE_DIR, 'static/utils/custom'),
 ]

@@ -23,6 +23,7 @@ urlpatterns = [
                   path('', include('apps.index.urls', namespace='home_page')),
                   path('account/', include('apps.account.urls', namespace='account')),
                   path('news/', include('apps.scontent.urls', namespace='scontent')),
+                  path('news2/', include('apps.scontent2.urls', namespace='scontent2')),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
