@@ -33,7 +33,7 @@ class Content(models.Model):
         print("=================")
         print(f'>>> {self.user.id} ======= {self.slug} >>>')
         print("=================")
-        return reverse('scontent2:detail', kwargs={'id': self.id, 'slug': self.slug})
+        return reverse('scontent:detail', kwargs={'id': self.id, 'slug': self.slug})
 
     def __str__(self):
         return self.title

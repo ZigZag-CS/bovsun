@@ -1,18 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% if request.user.is_authenticated %}
+      <a href="{% url 'scontent2:create_scontent2' %}">Создать</a>
+{% endif %}
+
+    <br>
+
+{% if content_detail2.user == request.user or request.user.is_superuser %}
+    <a href="{% url 'scontent2:edit_detail2' slug=content_detail2.slug id=content_detail2.id %}">Редактировать</a>
+{% endif %}
 
  <main role="main" class="container">
      <!--Контент -->
-     <h1>{{ content_detail.title }}</h1>
+     <h1>{{ content_detail2.title }}</h1>
 
      <br> <br>
 
      {% load thumbnail %}
 
-     {% thumbnail content_detail.image "300" as im %}
+     {% thumbnail content_detail2.image "300" as im %}
 
-         <a href="{{ content_detail.image.url }}">
+         <a href="{{ content_detail2.image.url }}">
              <img src="{{ im.url }}" alt="img">
          </a>
 
@@ -20,7 +29,7 @@
 
      <br><br>
 
-     {{ content_detail.entry|safe }}
+     {{ content_detail2.entry|safe }}
 
      <!-- End Контент -->
  </main>

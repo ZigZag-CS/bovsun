@@ -23,7 +23,7 @@ def content_detail2(request, id, slug):
     content_detail = get_object_or_404(Content2, id=id, slug=slug)
     return render(request,
                   "scontent2/detail.html",
-                  {'content_detail': content_detail}
+                  {'content_detail2': content_detail}
                   )
 
 
@@ -40,5 +40,5 @@ def content_edit2(request, id, slug):
             return redirect(new_content.get_absolute_url())
     else:
         form = ContentCreateForm2(instance=new_content)
-    context = {'form': form, 'create': False}
+    context = {'form': form, 'create_scontent2': False}
     return render(request, 'scontent2/create.html', context)
