@@ -3,33 +3,22 @@
 
 {% block content %}
 
-
-
 <br>
+
     <h2>Панель управления кабинета.</h2>
-
-
-
-<li class="list-group-item"><b>Login:</b> {{username}}</li>
+    <li class="list-group-item"><a href="/account/edit/"><b>Edit profile</b></a></li>
+    <li class="list-group-item"><b>Login:</b> {{username}}</li>
     <li class="list-group-item"><b>Обо мне:</b> {{profile.about_me|safe}}</li>
     <li class="list-group-item"> ip адрес: {{ip_address}} </li>
 
-
-
 <br>
-
-
 
     {% load thumbnail %}
 
-
-
     {% thumbnail profile.photo "200"  as im %}
-    <a href="{{ profile.photo.url }}">
-    <img src="{{ im.url }}"  class="image-detail">
-    </a>
+        <a href="{{ profile.photo.url }}">
+            <img src="{{ im.url }}"  class="image-detail">
+        </a>
     {% endthumbnail %}
-
-
 
 {% endblock %}

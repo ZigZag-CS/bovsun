@@ -132,6 +132,7 @@ STATICFILES_DIRS = [
                 os.path.join(BASE_DIR, 'apps/index/static'),
                 os.path.join(BASE_DIR, 'apps/scontent/static'),
                 os.path.join(BASE_DIR, 'static/utils/bootstrap44'),
+                os.path.join(BASE_DIR, 'static/utils/custom'),
 ]
 
 MEDIA_URL = '/media/'

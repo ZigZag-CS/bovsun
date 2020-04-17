@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+ <main role="main" class="container">
+
+     <!--Контент -->
+
+     <h1>Редактировать свои данные:</h1>
+     <form action="" method="post" enctype="multipart/form-data">
+         {{ user_form|crispy }}
+         {{ profile_form|crispy }}
+         {% csrf_token %}
+         <p>
+             <input type="submit" value="Save">
+         </p>
+     </form>
+
+ <!-- End Контент -->
+
+ </main>
+
+
+{% endblock %}

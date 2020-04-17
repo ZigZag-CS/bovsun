@@ -1,13 +1,13 @@
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.template import RequestContext
 
-from .forms import LoginForm
+from apps.account.forms import *
 from apps.account.models import *
 
 
@@ -39,7 +39,7 @@ def user_logout(request):
 
 @login_required
 def dashboard(request):
-    context = RequestContext(request)
+    # context = RequestContext(request)
     to = User.objects.get(username=request.user)
     try:
         profile = Profile.objects.get(user=to)
@@ -56,5 +56,30 @@ def dashboard(request):
                       'last_name': request.user.last_name,
                       'first_name': request.user.first_name,
                       'ip_address': request.META['REMOTE_ADDR'],
+                  }
+                  )
+
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+
+        profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Профиль успешно обновлён.')
+            return redirect('account:dashboard')
+        else:
+            messages.error(request, 'Ой! Ошибка при обновлении профиля. Попробуйте снова.')
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+    return render(request, "account/edit.html",
+                  {
+                      'user_form': user_form,
+                      'profile_form': profile_form
                   }
                   )

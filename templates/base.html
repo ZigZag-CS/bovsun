@@ -10,10 +10,9 @@
     <!-- Bootstrap -->
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 
-
-
-      <!-- Custom CSS -->
-{#    <link href="{% static "all_other_static/css/base_social.css" %}" rel="stylesheet">#}
+    <!-- Custom CSS -->
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+    <!-- END Custom CSS -->
 
 </head>
 <body>
@@ -55,7 +54,23 @@
  <br>
  <br>
 
+ <!--messages -->
+
+{% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message|safe }}
+                    <a href="#" class="close"></a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+<!-- End messages -->
+
 <main role="main" class="container">
+
     {% block content %}{% endblock %}
 
 </main>
@@ -68,12 +83,16 @@
     </footer>
 <!--footer -->
 
-
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="{% static "js/bootstrap.min.js"  %}"></script>
 <!-- END Optional JavaScript -->
+
+<!-- Custom JS -->
+    <script src="{% static "js/script.js"  %}"></script>
+<!-- END Custom JS -->
+
 </body>
 </html>
