@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+ <main role="main" class="container">
+<!--Контент -->
+<form action="." method="post">
+    {% csrf_token %}
+    <h3>Sigur doriți să ștergeți ?</h3>
+  <input type="submit" class="button" value="Confirm">
+</form>
+
+
+
+ <!-- End Контент -->
+
+ </main>
+
+
+
+{% endblock %}

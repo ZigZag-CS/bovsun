@@ -2,13 +2,15 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
-      <a href="{% url 'scontent2:create_scontent2' %}">Создать</a>
+      <a href="{% url 'scontent2:create_scontent2' %}">Create data</a>
 {% endif %}
 
     <br>
 
 {% if content_detail2.user == request.user or request.user.is_superuser %}
-    <a href="{% url 'scontent2:edit_detail2' slug=content_detail2.slug id=content_detail2.id %}">Редактировать</a>
+    <a href="{% url 'scontent2:edit_detail2' slug=content_detail2.slug id=content_detail2.id %}">Edit data</a>
+    <br>
+    <a href="{% url 'scontent2:delete_content2' slug=content_detail2.slug id=content_detail2.id %}">Delete data</a>
 {% endif %}
 
  <main role="main" class="container">
