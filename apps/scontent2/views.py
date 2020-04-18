@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
 
 from apps.scontent2.forms import *
 
@@ -67,3 +68,26 @@ def delete_content2(request, id, slug):
 
     tempate_vars = {'form': form}
     return render(request, 'scontent2/delete.html', tempate_vars)
+
+
+@login_required
+@require_POST
+def content_like(request):
+    content_id = request.POST.get('id')
+    action = request.POST.get('action')
+
+    if content_id and action:
+        try:
+            content = Content2.objects.get(id=content_id)
+            if action == 'like':
+                content.users_like.add(request.user)
+                # adaugam in lenta
+            else:
+                content.users_like.remove(request.user)
+
+            # JSON
+            return JsonResponse({'status': 'ok'})
+        except:
+            pass
+
+    return JsonResponse({'status': 'ko'})

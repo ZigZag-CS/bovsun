@@ -10,4 +10,5 @@ urlpatterns = [
     # url(r'^detail/(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.content_detail2, name='detail2'),
     path('detail/<int:id>/<slug:slug>/edit/', views.content_edit2, name='edit_detail2'),
     path('detail/<int:id>/<slug:slug>/delete/', views.delete_content2, name='delete_content2'),
+    path('like/', views.content_like, name='like'),
 ]
