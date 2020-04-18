@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
 from apps.scontent2.forms import *
+from my_decorators.decorator_ajax import *
 
 
 @login_required
@@ -72,6 +73,7 @@ def delete_content2(request, id, slug):
 
 @login_required
 @require_POST
+@ajax_required
 def content_like(request):
     content_id = request.POST.get('id')
     action = request.POST.get('action')
