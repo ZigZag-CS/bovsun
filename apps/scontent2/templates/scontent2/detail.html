@@ -37,11 +37,64 @@
  </main>
 
 
-{% endblock %}
+{% endblock content %}
 
 {% block ajax_and_jquery %}
 
     <!--Функция JQuery -->
-    <p> !!!!!!!!!!!!!!!!!!!! </p>
+// utilizam selectorul JQuery ('a.like'), pu a gasi toate tag-urile "a"
+// utilizam eventul "click"
 
-{% endblock %}
+    $('a.like').click(function(e)
+    {
+
+// utilizam e.preventDefault() pu ca sa nu reactioneze in toate tag-urile "a", doar in acel necesar
+
+    e.preventDefault();
+
+// utilizam $.post pu a trimete request asinhron catre server
+// utilizam url pu a crea Ajax-url
+
+    $.post('{% url "scontent2:like" %}',
+
+// utilizam dictionarul nostru din view cu parametrii id si action
+
+    {
+
+// obtinem valorile
+
+    id:     $(this).data('id'),
+    action: $(this).data('action')
+    },
+
+    function(data){
+
+// reply
+
+    if (data['status'] == 'ok')
+    {
+
+// cand datele prin http sunt primite, statutul e verificat, facem urmatoarele
+
+//функция обратного вызова
+
+    var previous_action = $('a.like').data('action');
+
+// if status is ok then
+
+    $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+
+// transforma linkul tekstual(like) totodata da posibilitate de face deslike
+
+    $('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
+
+// update like, mareste sau micsoreaza numarul de ....
+
+    var previous_likes = parseInt($('span.count .total').text());
+
+    $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+    }
+    });
+    });
+
+{% endblock ajax_and_jquery %}

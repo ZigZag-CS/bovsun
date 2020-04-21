@@ -1,0 +1,79 @@
+Index: apps/scontent2/templates/scontent2/detail.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends \"base.html\" %}\r\n{% block content %}\r\n\r\n{% if request.user.is_authenticated %}\r\n      <a href=\"{% url 'scontent2:create_scontent2' %}\">Create data</a>\r\n{% endif %}\r\n\r\n    <br>\r\n\r\n{% if content_detail2.user == request.user or request.user.is_superuser %}\r\n    <a href=\"{% url 'scontent2:edit_detail2' slug=content_detail2.slug id=content_detail2.id %}\">Edit data</a>\r\n    <br>\r\n    <a href=\"{% url 'scontent2:delete_content2' slug=content_detail2.slug id=content_detail2.id %}\">Delete data</a>\r\n{% endif %}\r\n\r\n <main role=\"main\" class=\"container\">\r\n     <!--Контент -->\r\n     <h1>{{ content_detail2.title }}</h1>\r\n\r\n     <br> <br>\r\n\r\n     {% load thumbnail %}\r\n\r\n     {% thumbnail content_detail2.image \"300\" as im %}\r\n\r\n         <a href=\"{{ content_detail2.image.url }}\">\r\n             <img src=\"{{ im.url }}\" alt=\"img\">\r\n         </a>\r\n\r\n     {% endthumbnail %}\r\n\r\n     <br><br>\r\n\r\n     {{ content_detail2.entry|safe }}\r\n\r\n     <!-- End Контент -->\r\n </main>\r\n\r\n\r\n{% endblock %}\r\n\r\n{% block ajax_and_jquery %}\r\n\r\n    <!--Функция JQuery -->\r\n    <p> !!!!!!!!!!!!!!!!!!!! </p>\r\n\r\n{% endblock %}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- apps/scontent2/templates/scontent2/detail.html	(revision c8ec847e8485dfa5f431821d25be855b5118cc5d)
++++ apps/scontent2/templates/scontent2/detail.html	(date 1587455678419)
+@@ -37,11 +37,64 @@
+  </main>
+ 
+ 
+-{% endblock %}
++{% endblock content %}
+ 
+ {% block ajax_and_jquery %}
+ 
+     <!--Функция JQuery -->
+-    <p> !!!!!!!!!!!!!!!!!!!! </p>
++// utilizam selectorul JQuery ('a.like'), pu a gasi toate tag-urile "a"
++// utilizam eventul "click"
++
++    $('a.like').click(function(e)
++    {
++
++// utilizam e.preventDefault() pu ca sa nu reactioneze in toate tag-urile "a", doar in acel necesar
++
++    e.preventDefault();
++
++// utilizam $.post pu a trimete request asinhron catre server
++// utilizam url pu a crea Ajax-url
++
++    $.post('{% url "images:like" %}',
++
++// utilizam dictionarul nostru din view cu parametrii id si action
++
++    {
++
++// obtinem valorile
++
++    id:     $(this).data('id'),
++    action: $(this).data('action')
++    },
++
++    function(data){
++
++// reply
++
++    if (data['status'] == 'ok')
++    {
++
++// cand datele prin http sunt primite, statutul e verificat, facem urmatoarele
++
++//функция обратного вызова
++
++    var previous_action = $('a.like').data('action');
++
++// if status is ok then
++
++    $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
++
++// transforma linkul tekstual(like) totodata da posibilitate de face deslike
++
++    $('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
++
++// update like, mareste sau micsoreaza numarul de ....
++
++    var previous_likes = parseInt($('span.count .total').text());
++
++    $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
++    }
++    });
++    });
+ 
+-{% endblock %}
+\ No newline at end of file
++{% endblock ajax_and_jquery %}
+\ No newline at end of file
