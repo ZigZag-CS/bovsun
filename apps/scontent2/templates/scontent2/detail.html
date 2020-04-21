@@ -1,13 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
 {% if request.user.is_authenticated %}
+    <br>
       <a href="{% url 'scontent2:create_scontent2' %}">Create data</a>
 {% endif %}
 
-    <br>
+
 
 {% if content_detail2.user == request.user or request.user.is_superuser %}
+    <br>
     <a href="{% url 'scontent2:edit_detail2' slug=content_detail2.slug id=content_detail2.id %}">Edit data</a>
     <br>
     <a href="{% url 'scontent2:delete_content2' slug=content_detail2.slug id=content_detail2.id %}">Delete data</a>
@@ -28,12 +31,55 @@
          </a>
 
      {% endthumbnail %}
-
+     <!-- статья -->
      <br><br>
 
      {{ content_detail2.entry|safe }}
 
+ {% with total_likes=content_detail2.users_like2.count users_like=content_detail2.users_like2.all %}
+    <div class="image-info">
+     <div>
+         <br><hr>
+         <!-- End количество просмотров -->
+         <!-- likes-->
+         <span class="count">
+             <span class="total">{{ total_likes }}</span>
+             like{{ total_likes|pluralize }}
+         </span>
+         <!--End  likes-->
+         {% if request.user.is_authenticated %}
+             <a href="#" data-id="{{ content_detail2.id }}" data-action="{% if request.user in users_like2 %}un{% endif %}like" class="like button">
+                 {% if request.user not in users_like2 %}
+                     <b>Нравится</b>
+                 {% else %}
+                     <b>Не нравится</b>
+                 {% endif %}
+             </a>
+     </div>
+    </div>
+         {% else %}
+             <br><br>
+{#             {{ content_detail2.entry|safe}}#}
+         {% endif %}
+     <br><br>
+     <div class="image-likes">
+         {% for user in content_detail2.users_like2.all %}
+             <div>
+                 {% if user.profile.photo %}
+                     <img src="{{ user.profile.photo.url }}" width="60px" height="60px">
+                 {% else %}
+                     <img src="{% static "no_image_app_content.png" %}"  width="60px" height="60px">
+                 {% endif %}
+                 <p>{{ user.first_name }}</p>
+             </div>
+         {% empty %}
+             Пока нет лайков. Оцените первым.
+         {% endfor %}
+     </div>
+ {% endwith %}
+
      <!-- End Контент -->
+
  </main>
 
 
@@ -45,7 +91,7 @@
 // utilizam selectorul JQuery ('a.like'), pu a gasi toate tag-urile "a"
 // utilizam eventul "click"
 
-    $('a.like').click(function(e)
+    jQuery('a.like').click(function(e)
     {
 
 // utilizam e.preventDefault() pu ca sa nu reactioneze in toate tag-urile "a", doar in acel necesar
@@ -55,7 +101,7 @@
 // utilizam $.post pu a trimete request asinhron catre server
 // utilizam url pu a crea Ajax-url
 
-    $.post('{% url "scontent2:like" %}',
+    jQuery.post('{% url "scontent2:like" %}',
 
 // utilizam dictionarul nostru din view cu parametrii id si action
 
@@ -63,12 +109,13 @@
 
 // obtinem valorile
 
-    id:     $(this).data('id'),
-    action: $(this).data('action')
+    id:     jQuery(this).data('id'),
+    action: jQuery(this).data('action')
+    // console.log(data('id'))
     },
 
     function(data){
-
+// console.log(data('id'))
 // reply
 
     if (data['status'] == 'ok')
@@ -78,21 +125,21 @@
 
 //функция обратного вызова
 
-    var previous_action = $('a.like').data('action');
+    var previous_action = jQuery('a.like').data('action');
 
 // if status is ok then
 
-    $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+    jQuery('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
 
 // transforma linkul tekstual(like) totodata da posibilitate de face deslike
 
-    $('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
+    jQuery('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
 
 // update like, mareste sau micsoreaza numarul de ....
 
-    var previous_likes = parseInt($('span.count .total').text());
+    var previous_likes = parseInt(jQuery('span.count .total').text());
 
-    $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+    jQuery('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
     }
     });
     });

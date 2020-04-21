@@ -4,7 +4,7 @@ from apps.scontent2.models import *
 
 
 class ContentAdmin2(admin.ModelAdmin):
-    list_display = ['title', 'slug', 'image', 'created']
+    list_display = ['user', 'title', 'slug', 'image', 'created']
     list_filter = ['created']
     prepopulated_fields = {'slug': ('title',)}
 

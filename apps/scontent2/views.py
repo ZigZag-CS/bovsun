@@ -25,6 +25,9 @@ def content_create2(request):
 
 def content_detail2(request, id, slug):
     content_detail = get_object_or_404(Content2, id=id, slug=slug)
+    # print("=================")
+    # print(f'>>> {content_detail.user.id} ======= {self.slug} >>>')
+    # print("=================")
     return render(request,
                   "scontent2/detail.html",
                   {'content_detail2': content_detail}
