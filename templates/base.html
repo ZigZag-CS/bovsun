@@ -94,5 +94,36 @@
     <script src="{% static "js/script.js"  %}"></script>
 <!-- END Custom JS -->
 
+<!--Лайки -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js"></script>
+
+ <script>
+    // <!-- укажем jquery.cookie -->
+   var csrftoken = $.cookie('csrftoken');
+
+   // <!-- Фунция Django csrftoken -->
+  function csrfSafeMethod(method) {
+            // <!-- these HTTP methods do not require CSRF protection -->
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+  $(document).ready(function(){
+            {% block ajax_and_jquery %}
+            {% endblock %}
+      });
+ </script>
+
+
+
+ <!-- End Лайки -->
+
 </body>
 </html>
