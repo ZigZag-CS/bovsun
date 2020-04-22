@@ -11,7 +11,8 @@ urlpatterns = [
     path('edit/', views.edit_profile, name="edit"),
     # users
     path('users/', views.user_list, name='user_list'),
-    # обязательно поставить follow перед user detail
+    # user follow
+    path('users/follow', views.user_follow, name='user_follow'),
     # re_path(r'^users/(?P<username>[-\w]+)/$', views.user_detail, name='user_detail'),
     path('users/<username>/', views.user_detail, name='user_detail'),
 ]
