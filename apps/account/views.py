@@ -3,9 +3,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 # from django.contrib.auth.models import User
-from django.template import RequestContext
+# from django.template import RequestContext
 
 from apps.account.forms import *
 from apps.account.models import *
@@ -83,3 +83,23 @@ def edit_profile(request):
                       'profile_form': profile_form
                   }
                   )
+
+
+@login_required
+def user_list(request):
+    users = User.objects.filter(is_active=True)
+
+    return render(request,
+                  'account/user/users_list.html',
+                  {'users': users})
+
+
+@login_required
+def user_detail(request, username):
+    user = get_object_or_404(User,
+                             username=username,
+                             is_active=True)
+
+    return render(request,
+                  'account/user/detail_user.html',
+                  {'user': user})
